@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-07-2025 a las 02:42:49
+-- Tiempo de generación: 12-08-2025 a las 01:47:04
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -61,12 +61,42 @@ CREATE TABLE `clases` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------
+
 --
--- Volcado de datos para la tabla `clases`
+-- Estructura de tabla para la tabla `clientes`
 --
 
-INSERT INTO `clases` (`id`, `objetivo`, `descripcion`, `entrenador`, `nutricionista`, `created_at`, `updated_at`) VALUES
-(20, 'Musculación y Fuerza', 'ghdf', 'Laura Torres', NULL, '2025-07-10 06:39:50', '2025-07-10 06:39:50');
+CREATE TABLE `clientes` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `apellido` varchar(255) NOT NULL,
+  `edad` int(11) NOT NULL,
+  `telefono` varchar(255) NOT NULL,
+  `peso` double NOT NULL,
+  `altura` double NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `tipodeplan` varchar(255) NOT NULL,
+  `frecuenciadepago` varchar(255) NOT NULL,
+  `objetivo` varchar(255) NOT NULL,
+  `entrenador` varchar(255) DEFAULT NULL,
+  `nutricionista` varchar(255) DEFAULT NULL,
+  `descripcion` text DEFAULT NULL,
+  `fecha_pago` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `clientes`
+--
+
+INSERT INTO `clientes` (`id`, `created_at`, `updated_at`, `nombre`, `apellido`, `edad`, `telefono`, `peso`, `altura`, `email`, `tipodeplan`, `frecuenciadepago`, `objetivo`, `entrenador`, `nutricionista`, `descripcion`, `fecha_pago`) VALUES
+(1, '2025-07-13 22:03:51', '2025-07-13 22:03:51', 'fdsfds', 'fdfds', 32, '32323232', 323, 323, 'dsfjdskjfk@fdfds.com', 'Basico', 'mensual', 'Acceso al gimnasio', 'Sin entrenador', 'Sin Nutricionista', 'Plan Basico', '2025-07-13'),
+(2, '2025-07-13 22:23:37', '2025-07-13 22:23:37', 'fdsfds', 'fdfds', 32, '32323232', 323, 323, 'dsfjds346324325kjfk@fdfds.com', 'Basico', 'mensual', 'Acceso al gimnasio', 'Sin entrenador', 'Sin Nutricionista', 'Plan Basico', '2025-07-13'),
+(3, '2025-07-13 22:28:43', '2025-07-13 22:28:43', 'efsfgsdg', 'dfds', 43, '43434343', 434, 433, 'dfdsfds@ewfefe.cpk', 'Basico', 'mensual', 'Acceso al gimnasio', 'Sin entrenador', 'Sin Nutricionista', 'Plan Basico', '2025-07-13'),
+(4, '2025-07-13 22:31:22', '2025-07-13 22:31:22', 'carlos', 'jarquin', 20, '56768765', 56, 2, 'prueba3@gmail.com', 'Plus', 'mensual', 'Cardio Intensivo', 'Carlos Díaz', NULL, NULL, '2025-07-13'),
+(5, '2025-07-13 23:15:31', '2025-07-13 23:15:31', 'emma', 'aros', 20, '65765467', 65, 2, 'wdefrgthyju@gmail.com', 'Premium', 'mensual', 'Cardio Intensivo', 'Carlos Díaz', 'Luis Herrera', NULL, '2025-07-13');
 
 -- --------------------------------------------------------
 
@@ -157,7 +187,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (5, '2025_07_05_015409_create_pagos_table', 1),
 (6, '2025_07_05_015409_create_suscripciones_table', 1),
 (7, '2025_07_05_015410_create_clases_table', 1),
-(8, '2025_07_05_015410_create_entrenadores_table', 1);
+(8, '2025_07_05_015410_create_entrenadores_table', 1),
+(9, '2025_07_10_214606_create_clientes_table', 1),
+(10, '2025_07_10_222048_add_tipodeplan_to_usuarios_table', 1);
 
 -- --------------------------------------------------------
 
@@ -174,13 +206,6 @@ CREATE TABLE `pagos` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `pagos`
---
-
-INSERT INTO `pagos` (`id`, `usuario_id`, `frecuenciadepago`, `precio`, `fecha_pago`, `created_at`, `updated_at`) VALUES
-(20, 20, 'mensual', 500, '2025-07-10 00:00:00', '2025-07-10 06:39:50', '2025-07-10 06:39:50');
 
 -- --------------------------------------------------------
 
@@ -214,7 +239,8 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('X0q36T9Ie145rRl31a0hx8qYDNcCZNh8NB06MxEH', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiNUcyM01DcUgzdkg1cGs4bHM4T1NFUXBKWW9KcFB6R1RvUGF6NWpMRSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjg6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9QbGFuZXMiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1752108088);
+('rPyAx1h13BPAViLkLSZUW4vAgaHMp56gOe6PYDE0', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiY2ZNa2p0OXAwa2YwZ1A0T0NmWWZNa29wSUJyM0RnQWZaODB5SkZnaSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9jbGllbnRlcyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7fQ==', 1754955917),
+('ycNExgLtXx6Wv8HgsGX3JH7sIi6uf6pJHlsTPqno', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiSkhVRHBseWlmM2YySEFiTjRvOWRXZndndzFPMjUzSDBCdU1IcEtSMyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9jbGllbnRlcyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6MzoidXJsIjthOjA6e31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1752427003);
 
 -- --------------------------------------------------------
 
@@ -233,13 +259,6 @@ CREATE TABLE `suscripciones` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Volcado de datos para la tabla `suscripciones`
---
-
-INSERT INTO `suscripciones` (`id`, `usuario_id`, `tipodeplan`, `precio`, `fecha_inicio`, `fecha_fin`, `created_at`, `updated_at`) VALUES
-(20, 20, 'Plus', 500, '2025-07-10', '2025-08-09', '2025-07-10 06:39:50', '2025-07-10 06:39:50');
-
 -- --------------------------------------------------------
 
 --
@@ -257,6 +276,13 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Dueño del Gym', 'dueno@fitzone.com', NULL, '$2y$12$OWgAZ6GojcHRxA6kLehNcOhd2JzBZxHZZXw6su/j.wq6ko/dmfPdm', NULL, '2025-07-13 22:34:02', '2025-07-13 22:34:02');
+
 -- --------------------------------------------------------
 
 --
@@ -273,15 +299,9 @@ CREATE TABLE `usuarios` (
   `altura` int(11) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `tipodeplan` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `usuarios`
---
-
-INSERT INTO `usuarios` (`id`, `nombre`, `apellido`, `edad`, `telefono`, `peso`, `altura`, `email`, `created_at`, `updated_at`) VALUES
-(20, 'sdf', 'fsd', 2345, 5234, 5634, 534, 'fasdfs6455346456456456645a@gmadaetyresdasfas.com', '2025-07-10 06:39:50', '2025-07-10 06:39:50');
 
 --
 -- Índices para tablas volcadas
@@ -303,6 +323,12 @@ ALTER TABLE `cache_locks`
 -- Indices de la tabla `clases`
 --
 ALTER TABLE `clases`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `clientes`
+--
+ALTER TABLE `clientes`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -387,7 +413,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `clases`
 --
 ALTER TABLE `clases`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `clientes`
+--
+ALTER TABLE `clientes`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `entrenadores`
@@ -411,31 +443,31 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `pagos`
 --
 ALTER TABLE `pagos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `suscripciones`
 --
 ALTER TABLE `suscripciones`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
