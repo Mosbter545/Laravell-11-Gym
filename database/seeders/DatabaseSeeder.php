@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Hash; // <-- Esto es lo que falta
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,7 +13,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Crea un usuario de prueba (opcional)
+        // Crea 20 usuarios de prueba
+        User::factory(20)->create();
+
+        // Crea un usuario específico (opcional)
         User::factory()->create([
             'name' => 'Dueño Gimnasio',
             'email' => 'dueno@gimnasio.com',
@@ -22,11 +25,6 @@ class DatabaseSeeder extends Seeder
 
         // Llama a los seeders que has creado
         $this->call([
-            UsuarioSeeder::class,
-            PAGOSSeeder::class,
-            CLASESSeeder::class,            
-            ENTRENADORESSeeder::class,
-            SUSCRIPCIONESSeeder::class,
             ClienteSeeder::class,
         ]);
     }

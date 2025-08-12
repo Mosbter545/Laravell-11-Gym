@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Faker\Factory as Faker;
 
 class ClienteSeeder extends Seeder
 {
@@ -12,23 +13,27 @@ class ClienteSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('clientes')->insert([
-            'nombre' => 'Luis',
-            'apellido' => 'Martínez',
-            'edad' => 30,
-            'telefono' => '85247896',
-            'peso' => 75,
-            'altura' => 172,
-            'email' => 'luis@example.com',
-            'tipodeplan' => 'Plus',
-            'frecuenciadepago' => 'mensual',
-            'objetivo' => 'Tonificar',
-            'entrenador' => 'Laura Torres',
-            'nutricionista' => 'Ana Martínez',
-            'descripcion' => 'Ninguna',
-            'fecha_pago' => now(),
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        $faker = Faker::create();
+
+        for ($i = 0; $i < 50; $i++) {
+            DB::table('clientes')->insert([
+                'nombre' => $faker->firstName,
+                'apellido' => $faker->lastName,
+                'edad' => $faker->numberBetween(18, 65),
+                'telefono' => $faker->phoneNumber,
+                'peso' => $faker->numberBetween(50, 120),
+                'altura' => $faker->numberBetween(150, 200),
+                'email' => $faker->unique()->safeEmail,
+                'tipodeplan' => $faker->randomElement(['Básico', 'Plus', 'Premium', 'Personalizado']),
+                'frecuenciadepago' => $faker->randomElement(['mensual', 'trimestral', 'anual']),
+                'objetivo' => $faker->randomElement(['Tonificar', 'Bajar de peso', 'Ganar masa muscular']),
+                'entrenador' => $faker->name,
+                'nutricionista' => $faker->name,
+                'descripcion' => $faker->sentence,
+                'fecha_pago' => $faker->dateTimeThisYear,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
     }
 }
