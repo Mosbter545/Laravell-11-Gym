@@ -83,6 +83,7 @@
             @endforeach
         </tbody>
     </table>
+    {{ $clientes->links() }}
  </form>
 
     <script>

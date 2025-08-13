@@ -14,14 +14,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Crea 20 usuarios de prueba
-        User::factory(20)->create();
-
-        // Crea un usuario específico (opcional)
-        User::factory()->create([
-            'name' => 'Dueño Gimnasio',
-            'email' => 'dueno@gimnasio.com',
-            'password' => Hash::make('12345678'),
-        ]);
+        User::factory()->create();
 
         // Llama a los seeders que has creado
         $this->call([
@@ -29,3 +22,12 @@ class DatabaseSeeder extends Seeder
         ]);
     }
 }
+
+
+   /*     // Crea un usuario específico
+        User::factory()->create([
+            'name' => 'Dueño Gimnasio',
+            'email' => 'dueno@gimnasio.com',
+            'password' => Hash::make('12345678'),
+        ]); 
+    */

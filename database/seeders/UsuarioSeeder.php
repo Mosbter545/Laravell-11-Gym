@@ -10,7 +10,7 @@ class UsuarioSeeder extends Seeder
 {
     public function run(): void
     {
-        Usuario::factory()->count(100)->create();
+        
     }
 }
 
